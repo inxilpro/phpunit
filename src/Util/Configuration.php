@@ -552,15 +552,11 @@ class Configuration
             $value = $data['value'];
             $force = isset($data['force']) ? $data['force'] : false;
 
-            if (false === \getenv($name)) {
+            if (false === \getenv($name) || true === $force) {
                 \putenv("{$name}={$value}");
             }
 
-            if (!isset($_ENV[$name])) {
-                $_ENV[$name] = $value;
-            }
-
-            if (true === $force) {
+            if (!isset($_ENV[$name]) || true === $force) {
                 $_ENV[$name] = $value;
             }
         }
